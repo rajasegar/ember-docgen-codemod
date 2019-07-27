@@ -6,12 +6,29 @@ module.exports = function transformer(file, api) {
   const options = getOptions();
 
   return j(file.source)
-    .find(j.Identifier)
+    .find(j.ExportDefaultDeclaration, {
+      declaration: {
+        callee: {
+          object: { name: "Component" },
+          property: { name: "extend" }
+        }
+      }
+    })
     .forEach(path => {
-      path.node.name = path.node.name
-        .split('')
-        .reverse()
-        .join('');
+      //console.log( path.value.declaration.arguments[0].properties);
+      let props =
+        path.value.declaration.arguments[0].properties;
+      props.forEach(p => {
+        //console.log(p);
+        let comment = `*
+* The title of something
+*
+* @property ${p.key.name}
+* @type ${p.value ? p.value.type : p.type}
+* @public
+`;
+        p.comments = [j.commentBlock(comment, true)];
+      });
     })
     .toSource();
 }
