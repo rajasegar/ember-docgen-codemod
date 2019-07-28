@@ -1,36 +1,29 @@
 export default Component.extend({
-  /**
-  * The title of something
-  *
-  * @property layout
-  * @type Identifier
-  * @public
-  */
   layout,
 
   /**
-  * The title of something
+  * classNames
   *
   * @property classNames
-  * @type ArrayExpression
+  * @type array
   * @public
   */
   classNames: ['accordion'],
 
   /**
-  * The title of something
+  * accordionState
   *
   * @property accordionState
-  * @type NullLiteral
+  * @type null
   * @public
   */
   accordionState: null,
 
   /**
-  * The title of something
+  * availabilityMessage
   *
   * @property availabilityMessage
-  * @type CallExpression
+  * @type function
   * @public
   */
   availabilityMessage: computed('availability', function() {
@@ -40,10 +33,10 @@ export default Component.extend({
   }),
 
   /**
-  * The title of something
+  * init
   *
   * @property init
-  * @type ObjectMethod
+  * @type function
   * @public
   */
   init() {
@@ -72,10 +65,10 @@ export default Component.extend({
   },
 
   /**
-  * The title of something
+  * focusIn
   *
   * @property focusIn
-  * @type ObjectMethod
+  * @type function
   * @public
   */
   focusIn() {
