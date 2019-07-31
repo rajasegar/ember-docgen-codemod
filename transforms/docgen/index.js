@@ -57,7 +57,7 @@ module.exports = function transformer(file, api) {
           const computedComment = `*
 * ${p.key.name}
 *
-* @computed
+* @computed ${p.key.name}
 `;
 
           const methodComment = `*
