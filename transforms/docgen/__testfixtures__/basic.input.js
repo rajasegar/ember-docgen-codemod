@@ -3,6 +3,10 @@ export default Component.extend({
 
   classNames: ['accordion'],
 
+  attributeBindings: ['attr1', 'attr2'],
+
+  classNameBindings: ['active','inactive'],
+
   accordionState: null,
 
   availabilityMessage: computed('availability', function() {

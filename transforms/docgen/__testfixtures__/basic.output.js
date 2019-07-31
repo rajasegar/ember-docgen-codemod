@@ -10,6 +10,10 @@ export default Component.extend({
 
   classNames: ['accordion'],
 
+  attributeBindings: ['attr1', 'attr2'],
+
+  classNameBindings: ['active','inactive'],
+
   /**
   * accordionState
   *
@@ -22,7 +26,7 @@ export default Component.extend({
   /**
   * availabilityMessage
   *
-  * @computed
+  * @computed availabilityMessage
   */
   availabilityMessage: computed('availability', function() {
     const availability = get(this, 'availability');
