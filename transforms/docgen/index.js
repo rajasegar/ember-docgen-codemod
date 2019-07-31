@@ -12,7 +12,9 @@ const VALUE_MAP = {
 
 const IGNORE_PROPS = [
   'layout',
-  'classNames'
+  'classNames',
+  'attributeBindings',
+  'classNameBindings'
 ];
 
 module.exports = function transformer(file, api) {
