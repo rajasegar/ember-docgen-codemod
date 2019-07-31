@@ -1,6 +1,6 @@
 {
   "name": "ember-docgen-codemod",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "scripts": {
     "test": "codemod-cli test",
     "update-docs": "codemod-cli update-docs",
