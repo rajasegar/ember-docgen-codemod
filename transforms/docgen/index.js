@@ -1,3 +1,10 @@
+/**
+ * TODO
+ * 2. Support for private properties
+ * 3. Ignore tagName props
+ * 4. Refactor different comments - move them to functions
+*/
+
 const { getParser } = require('codemod-cli').jscodeshift;
 const { getOptions } = require('codemod-cli');
 
@@ -18,6 +25,12 @@ const IGNORE_PROPS = [
 ];
 
 module.exports = function transformer(file, api) {
+
+  // Ignore non-js files
+  if(path.extname(file.path) !== '.js') {
+    return j(file.source).toSource();
+  }
+
   const capitalize = n => n.split('-').map(s => s[0].toUpperCase() + s.slice(1)).join('');
   const componentName = capitalize(path.basename(file.path, '.js'));
   const j = getParser(api);
