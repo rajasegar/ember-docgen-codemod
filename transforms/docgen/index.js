@@ -26,6 +26,9 @@ const IGNORE_PROPS = [
 
 module.exports = function transformer(file, api) {
 
+  const j = getParser(api);
+  const options = getOptions();
+
   // Ignore non-js files
   if(path.extname(file.path) !== '.js') {
     return j(file.source).toSource();
@@ -33,8 +36,6 @@ module.exports = function transformer(file, api) {
 
   const capitalize = n => n.split('-').map(s => s[0].toUpperCase() + s.slice(1)).join('');
   const componentName = capitalize(path.basename(file.path, '.js'));
-  const j = getParser(api);
-  const options = getOptions();
 
   return j(file.source)
     .find(j.ExportDefaultDeclaration, {
