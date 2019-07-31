@@ -24,6 +24,14 @@ module.exports = function transformer(file, api) {
       }
     })
     .forEach(path => {
+      const compComment = `*
+  A component. Usage:
+  @class Component
+  @namespace Components
+  @extends Ember.Component
+  @public
+`;
+      path.value.comments = [j.commentBlock(compComment, true)];
       let props =
         path.value.declaration.arguments[0].properties;
       props.forEach(p => {
@@ -33,7 +41,7 @@ module.exports = function transformer(file, api) {
           let comment = `*
 * ${p.key.name}
 *
-* @property ${p.key.name}
+* @field ${p.key.name}
 * @type ${valueType}
 * @public
 `;

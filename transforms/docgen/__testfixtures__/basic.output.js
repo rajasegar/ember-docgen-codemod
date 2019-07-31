@@ -1,10 +1,17 @@
+/**
+  A component. Usage:
+  @class Component
+  @namespace Components
+  @extends Ember.Component
+  @public
+*/
 export default Component.extend({
   layout,
 
   /**
   * classNames
   *
-  * @property classNames
+  * @field classNames
   * @type array
   * @public
   */
@@ -13,7 +20,7 @@ export default Component.extend({
   /**
   * accordionState
   *
-  * @property accordionState
+  * @field accordionState
   * @type null
   * @public
   */
@@ -22,7 +29,7 @@ export default Component.extend({
   /**
   * availabilityMessage
   *
-  * @property availabilityMessage
+  * @field availabilityMessage
   * @type function
   * @public
   */
@@ -35,7 +42,7 @@ export default Component.extend({
   /**
   * init
   *
-  * @property init
+  * @field init
   * @type function
   * @public
   */
@@ -67,7 +74,7 @@ export default Component.extend({
   /**
   * focusIn
   *
-  * @property focusIn
+  * @field focusIn
   * @type function
   * @public
   */
