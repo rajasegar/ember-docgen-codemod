@@ -3,6 +3,7 @@
  * 2. Support for private properties
  * 3. Ignore tagName props
  * 4. Refactor different comments - move them to functions
+ * 5. Change transform name to components
 */
 
 const { getParser } = require('codemod-cli').jscodeshift;
@@ -31,7 +32,7 @@ module.exports = function transformer(file, api) {
 
   // Ignore non-js files
   if(path.extname(file.path) !== '.js') {
-    return j(file.source).toSource();
+    return;
   }
 
   const capitalize = n => n.split('-').map(s => s[0].toUpperCase() + s.slice(1)).join('');
