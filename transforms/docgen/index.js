@@ -4,6 +4,8 @@
  * 3. Ignore tagName props
  * 4. Refactor different comments - move them to functions
  * 5. Change transform name to components
+ * 6. Handle function params
+ * 7. Handle actions
 */
 
 const { getParser } = require('codemod-cli').jscodeshift;
