@@ -10,7 +10,10 @@ const VALUE_MAP = {
   'ObjectMethod': 'function'
 };
 
-const IGNORE_PROPS = ['layout'];
+const IGNORE_PROPS = [
+  'layout',
+  'classNames'
+];
 
 module.exports = function transformer(file, api) {
   const capitalize = n => n.split('-').map(s => s[0].toUpperCase() + s.slice(1)).join('');
@@ -41,15 +44,35 @@ module.exports = function transformer(file, api) {
       props.forEach(p => {
         if(!IGNORE_PROPS.includes(p.key.name)) {
           const _valueType = p.value ? p.value.type : p.type;
+          //console.log(_valueType);
           const valueType = VALUE_MAP[_valueType];
-          let comment = `*
+          let fieldComment = `*
 * ${p.key.name}
 *
 * @field ${p.key.name}
 * @type ${valueType}
 * @public
 `;
-          p.comments = [j.commentBlock(comment, true)];
+
+          const computedComment = `*
+* ${p.key.name}
+*
+* @computed
+`;
+
+          const methodComment = `*
+* ${p.key.name}
+*
+* @method ${p.key.name}
+* @public
+`;
+          if(p.value && p.value.type === "CallExpression" && p.value.callee.name === "computed") {
+            p.comments = [j.commentBlock(computedComment, true)];
+          } else if(_valueType === "ObjectMethod") {
+            p.comments = [j.commentBlock(methodComment, true)];
+          } else {
+            p.comments = [j.commentBlock(fieldComment, true)];
+          }
         }
       });
     })

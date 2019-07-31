@@ -8,13 +8,6 @@
 export default Component.extend({
   layout,
 
-  /**
-  * classNames
-  *
-  * @field classNames
-  * @type array
-  * @public
-  */
   classNames: ['accordion'],
 
   /**
@@ -29,9 +22,7 @@ export default Component.extend({
   /**
   * availabilityMessage
   *
-  * @field availabilityMessage
-  * @type function
-  * @public
+  * @computed
   */
   availabilityMessage: computed('availability', function() {
     const availability = get(this, 'availability');
@@ -42,8 +33,7 @@ export default Component.extend({
   /**
   * init
   *
-  * @field init
-  * @type function
+  * @method init
   * @public
   */
   init() {
@@ -74,8 +64,7 @@ export default Component.extend({
   /**
   * focusIn
   *
-  * @field focusIn
-  * @type function
+  * @method focusIn
   * @public
   */
   focusIn() {
