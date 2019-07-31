@@ -1,6 +1,6 @@
 /**
-  A component. Usage:
-  @class Component
+  Basic.input Usage:
+  @class Basic.input
   @namespace Components
   @extends Ember.Component
   @public

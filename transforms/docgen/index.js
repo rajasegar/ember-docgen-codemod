@@ -1,6 +1,8 @@
 const { getParser } = require('codemod-cli').jscodeshift;
 const { getOptions } = require('codemod-cli');
 
+const path = require('path');
+
 const VALUE_MAP = {
   'NullLiteral': 'null',
   'ArrayExpression': 'array',
@@ -11,6 +13,8 @@ const VALUE_MAP = {
 const IGNORE_PROPS = ['layout'];
 
 module.exports = function transformer(file, api) {
+  const capitalize = n => n.split('-').map(s => s[0].toUpperCase() + s.slice(1)).join('');
+  const componentName = capitalize(path.basename(file.path, '.js'));
   const j = getParser(api);
   const options = getOptions();
 
@@ -25,8 +29,8 @@ module.exports = function transformer(file, api) {
     })
     .forEach(path => {
       const compComment = `*
-  A component. Usage:
-  @class Component
+  ${componentName} Usage:
+  @class ${componentName}
   @namespace Components
   @extends Ember.Component
   @public
