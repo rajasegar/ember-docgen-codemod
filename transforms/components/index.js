@@ -1,16 +1,21 @@
 /**
  * TODO
  * 2. Support for private properties
- * 4. Refactor different comments - move them to functions
- * 5. Change transform name to components
  * 6. Handle function params
  * 7. Handle actions
 */
 
+const path = require('path');
 const { getParser } = require('codemod-cli').jscodeshift;
 const { getOptions } = require('codemod-cli');
 
-const path = require('path');
+const { 
+  methodComment,
+  compComment,
+  fieldComment,
+  computedComment
+}  = require('./utils/comments');
+
 
 const VALUE_MAP = {
   'NullLiteral': 'null',
@@ -50,47 +55,25 @@ module.exports = function transformer(file, api) {
       }
     })
     .forEach(path => {
-      const compComment = `*
-  ${componentName} Usage:
-  @class ${componentName}
-  @namespace Components
-  @extends Ember.Component
-  @public
-`;
-      path.value.comments = [j.commentBlock(compComment, true)];
+
+      path.value.comments = [j.commentBlock(compComment(componentName), true)];
+
       let props =
         path.value.declaration.arguments[0].properties;
+
       props.forEach(p => {
         if(!IGNORE_PROPS.includes(p.key.name)) {
           const _valueType = p.value ? p.value.type : p.type;
           //console.log(_valueType);
           const valueType = VALUE_MAP[_valueType];
-          let fieldComment = `*
-* ${p.key.name}
-*
-* @field ${p.key.name}
-* @type ${valueType}
-* @public
-`;
 
-          const computedComment = `*
-* ${p.key.name}
-*
-* @computed ${p.key.name}
-`;
 
-          const methodComment = `*
-* ${p.key.name}
-*
-* @method ${p.key.name}
-* @public
-`;
           if(p.value && p.value.type === "CallExpression" && p.value.callee.name === "computed") {
-            p.comments = [j.commentBlock(computedComment, true)];
+            p.comments = [j.commentBlock(computedComment(p.key.name, p.key.name), true)];
           } else if(_valueType === "ObjectMethod") {
-            p.comments = [j.commentBlock(methodComment, true)];
+            p.comments = [j.commentBlock(methodComment(p.key.name), true)];
           } else {
-            p.comments = [j.commentBlock(fieldComment, true)];
+            p.comments = [j.commentBlock(fieldComment(p.key.name, p.key.name, valueType), true)];
           }
         }
       });
