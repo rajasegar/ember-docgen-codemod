@@ -24,7 +24,8 @@ const IGNORE_PROPS = [
   'layout',
   'classNames',
   'attributeBindings',
-  'classNameBindings'
+  'classNameBindings',
+  'tagName'
 ];
 
 module.exports = function transformer(file, api) {

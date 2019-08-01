@@ -8,6 +8,8 @@
 export default Component.extend({
   layout,
 
+  tagName: 'span',
+
   classNames: ['accordion'],
 
   attributeBindings: ['attr1', 'attr2'],
