@@ -1,6 +1,5 @@
 /**
  * TODO
- * 6. Handle function params
  * 7. Handle actions
 */
 
@@ -70,7 +69,7 @@ module.exports = function transformer(file, api) {
           if(p.value && p.value.type === "CallExpression" && p.value.callee.name === "computed") {
             p.comments = [j.commentBlock(computedComment(p.key.name, p.key.name), true)];
           } else if(_valueType === "ObjectMethod") {
-            p.comments = [j.commentBlock(methodComment(p.key.name), true)];
+            p.comments = [j.commentBlock(methodComment(p.key.name, p.params), true)];
           } else {
             p.comments = [j.commentBlock(fieldComment(p.key.name, p.key.name, valueType), true)];
           }

@@ -44,7 +44,7 @@ export default Component.extend({
     registerIndex(accordionItemIndex);
   },
 
-  focusIn() {
+  focusIn(param1, param2) {
     const {
       accordionItemIndex,
       'accordionState.setFocusIndex': setFocusIndex,

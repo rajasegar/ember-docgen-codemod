@@ -50,6 +50,7 @@ export default Component.extend({
   *
   * @method init
   * @public
+  *
   */
   init() {
     this._super(...arguments);
@@ -81,8 +82,10 @@ export default Component.extend({
   *
   * @method focusIn
   * @public
+  * @param {any} param1
+  * @param {any} param2
   */
-  focusIn() {
+  focusIn(param1, param2) {
     const {
       accordionItemIndex,
       'accordionState.setFocusIndex': setFocusIndex,
@@ -99,6 +102,7 @@ export default Component.extend({
   *
   * @method _privateMethod
   * @private
+  *
   */
   _privateMethod() {
     console.log('hello');

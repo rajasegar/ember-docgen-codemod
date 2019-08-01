@@ -2,12 +2,19 @@ function scope(name) {
   return name[0] === "_" ? "private" : "public";
 }
 
-function methodComment(name) {
+function methodComment(name, params) {
+  let _params = '\b'; 
+
+  _params = params.map((p) => {
+    return `* @param \{any\} ${p.name}`;
+  }).join('\n');
+
 return `*
 * ${name}
 *
 * @method ${name}
 * @${scope(name)}
+${params.length > 0 ? _params : '*'}
 `;
 }
 
