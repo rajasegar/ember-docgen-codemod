@@ -1,6 +1,5 @@
 /**
  * TODO
- * 2. Support for private properties
  * 6. Handle function params
  * 7. Handle actions
 */

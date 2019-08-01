@@ -19,7 +19,7 @@ ember-docgen-codemod <TRANSFORM NAME> path/of/files/ or/some**/*glob.js
 ## Transforms
 
 <!--TRANSFORMS_START-->
-* [docgen](transforms/docgen/README.md)
+* [components](transforms/components/README.md)
 <!--TRANSFORMS_END-->
 
 ## Contributing

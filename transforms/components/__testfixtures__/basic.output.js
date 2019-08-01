@@ -26,6 +26,15 @@ export default Component.extend({
   accordionState: null,
 
   /**
+  * _myprivate
+  *
+  * @field _myprivate
+  * @type null
+  * @private
+  */
+  _myprivate: null,
+
+  /**
   * availabilityMessage
   *
   * @computed availabilityMessage
@@ -83,6 +92,16 @@ export default Component.extend({
     ]);
 
     setFocusIndex(accordionItemIndex);
+  },
+
+  /**
+  * _privateMethod
+  *
+  * @method _privateMethod
+  * @private
+  */
+  _privateMethod() {
+    console.log('hello');
   }
 
 });

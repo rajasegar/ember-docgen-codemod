@@ -11,6 +11,8 @@ export default Component.extend({
 
   accordionState: null,
 
+  _myprivate: null,
+
   availabilityMessage: computed('availability', function() {
     const availability = get(this, 'availability');
 
@@ -52,6 +54,10 @@ export default Component.extend({
     ]);
 
     setFocusIndex(accordionItemIndex);
+  },
+
+  _privateMethod() {
+    console.log('hello');
   }
 
 });

@@ -1,10 +1,13 @@
+function scope(name) {
+  return name[0] === "_" ? "private" : "public";
+}
 
 function methodComment(name) {
 return `*
 * ${name}
 *
 * @method ${name}
-* @public
+* @${scope(name)}
 `;
 }
 
@@ -21,7 +24,7 @@ const fieldComment = (description, name, type) => `*
 *
 * @field ${name}
 * @type ${type}
-* @public
+* @${scope(name)}
 `;
 
 const computedComment = (description, name) => `*

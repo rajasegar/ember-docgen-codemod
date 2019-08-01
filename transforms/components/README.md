@@ -22,14 +22,22 @@ ember-docgen-codemod docgen path/of/files/ or/some**/*glob.js
 ---
 <a id="basic">**basic**</a>
 
-**Input** (<small>[basic.input.js](transforms/docgen/__testfixtures__/basic.input.js)</small>):
+**Input** (<small>[basic.input.js](transforms/components/__testfixtures__/basic.input.js)</small>):
 ```js
 export default Component.extend({
   layout,
 
+  tagName: 'span',
+
   classNames: ['accordion'],
 
+  attributeBindings: ['attr1', 'attr2'],
+
+  classNameBindings: ['active','inactive'],
+
   accordionState: null,
+
+  _myprivate: null,
 
   availabilityMessage: computed('availability', function() {
     const availability = get(this, 'availability');
@@ -72,48 +80,58 @@ export default Component.extend({
     ]);
 
     setFocusIndex(accordionItemIndex);
+  },
+
+  _privateMethod() {
+    console.log('hello');
   }
 
 });
 
 ```
 
-**Output** (<small>[basic.output.js](transforms/docgen/__testfixtures__/basic.output.js)</small>):
+**Output** (<small>[basic.output.js](transforms/components/__testfixtures__/basic.output.js)</small>):
 ```js
+/**
+  Basic.input Usage:
+  @class Basic.input
+  @namespace Components
+  @extends Ember.Component
+  @public
+*/
 export default Component.extend({
-  /**
-  * The title of something
-  *
-  * @property layout
-  * @type Identifier
-  * @public
-  */
   layout,
 
-  /**
-  * The title of something
-  *
-  * @property classNames
-  * @type ArrayExpression
-  * @public
-  */
+  tagName: 'span',
+
   classNames: ['accordion'],
 
+  attributeBindings: ['attr1', 'attr2'],
+
+  classNameBindings: ['active','inactive'],
+
   /**
-  * The title of something
+  * accordionState
   *
-  * @property accordionState
-  * @type NullLiteral
+  * @field accordionState
+  * @type null
   * @public
   */
   accordionState: null,
 
   /**
-  * The title of something
+  * _myprivate
   *
-  * @property availabilityMessage
-  * @type CallExpression
-  * @public
+  * @field _myprivate
+  * @type null
+  * @private
+  */
+  _myprivate: null,
+
+  /**
+  * availabilityMessage
+  *
+  * @computed availabilityMessage
   */
   availabilityMessage: computed('availability', function() {
     const availability = get(this, 'availability');
@@ -122,10 +140,9 @@ export default Component.extend({
   }),
 
   /**
-  * The title of something
+  * init
   *
-  * @property init
-  * @type ObjectMethod
+  * @method init
   * @public
   */
   init() {
@@ -154,10 +171,9 @@ export default Component.extend({
   },
 
   /**
-  * The title of something
+  * focusIn
   *
-  * @property focusIn
-  * @type ObjectMethod
+  * @method focusIn
   * @public
   */
   focusIn() {
@@ -170,6 +186,16 @@ export default Component.extend({
     ]);
 
     setFocusIndex(accordionItemIndex);
+  },
+
+  /**
+  * _privateMethod
+  *
+  * @method _privateMethod
+  * @private
+  */
+  _privateMethod() {
+    console.log('hello');
   }
 
 });
