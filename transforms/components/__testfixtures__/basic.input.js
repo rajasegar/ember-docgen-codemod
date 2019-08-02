@@ -58,6 +58,20 @@ export default Component.extend({
 
   _privateMethod() {
     console.log('hello');
+  },
+
+  actions: {
+    setActiveItem(accordionItemIndex) {
+      return set(this, 'activeItem', accordionItemIndex);
+    },
+
+    setFocusIndex(accordionItemIndex) {
+      set(this, 'focusIndex', accordionItemIndex);
+    },
+
+    registerIndex(accordionItemIndex) {
+      get(this, 'accordionItemIndexes').push(accordionItemIndex);
+    },
   }
 
 });

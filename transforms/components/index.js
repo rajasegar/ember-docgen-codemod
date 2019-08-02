@@ -1,8 +1,3 @@
-/**
- * TODO
- * 7. Handle actions
-*/
-
 const path = require('path');
 const { getParser } = require('codemod-cli').jscodeshift;
 const { getOptions } = require('codemod-cli');
@@ -27,7 +22,8 @@ const IGNORE_PROPS = [
   'classNames',
   'attributeBindings',
   'classNameBindings',
-  'tagName'
+  'tagName',
+  'actions'
 ];
 
 module.exports = function transformer(file, api) {
@@ -42,6 +38,28 @@ module.exports = function transformer(file, api) {
 
   const capitalize = n => n.split('-').map(s => s[0].toUpperCase() + s.slice(1)).join('');
   const componentName = capitalize(path.basename(file.path, '.js'));
+
+  const genComments = (props) => {
+    props.forEach(p => {
+        if(!IGNORE_PROPS.includes(p.key.name)) {
+          const _valueType = p.value ? p.value.type : p.type;
+          //console.log(_valueType);
+          const valueType = VALUE_MAP[_valueType];
+
+
+          if(p.value && p.value.type === "CallExpression" && p.value.callee.name === "computed") {
+            p.comments = [j.commentBlock(computedComment(p.key.name, p.key.name), true)];
+          } else if(_valueType === "ObjectMethod") {
+            p.comments = [j.commentBlock(methodComment(p.key.name, p.params), true)];
+          } else {
+            p.comments = [j.commentBlock(fieldComment(p.key.name, p.key.name, valueType), true)];
+          }
+        } else if(p.key.name === 'actions') {
+
+          genComments(p.value.properties);
+        }
+      });
+  };
 
   return j(file.source)
     .find(j.ExportDefaultDeclaration, {
@@ -59,22 +77,9 @@ module.exports = function transformer(file, api) {
       let props =
         path.value.declaration.arguments[0].properties;
 
-      props.forEach(p => {
-        if(!IGNORE_PROPS.includes(p.key.name)) {
-          const _valueType = p.value ? p.value.type : p.type;
-          //console.log(_valueType);
-          const valueType = VALUE_MAP[_valueType];
+      genComments(props);
 
-
-          if(p.value && p.value.type === "CallExpression" && p.value.callee.name === "computed") {
-            p.comments = [j.commentBlock(computedComment(p.key.name, p.key.name), true)];
-          } else if(_valueType === "ObjectMethod") {
-            p.comments = [j.commentBlock(methodComment(p.key.name, p.params), true)];
-          } else {
-            p.comments = [j.commentBlock(fieldComment(p.key.name, p.key.name, valueType), true)];
-          }
-        }
-      });
+      
     })
     .toSource();
 }

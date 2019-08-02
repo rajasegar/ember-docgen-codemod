@@ -106,6 +106,41 @@ export default Component.extend({
   */
   _privateMethod() {
     console.log('hello');
+  },
+
+  actions: {
+    /**
+    * setActiveItem
+    *
+    * @method setActiveItem
+    * @public
+    * @param {any} accordionItemIndex
+    */
+    setActiveItem(accordionItemIndex) {
+      return set(this, 'activeItem', accordionItemIndex);
+    },
+
+    /**
+    * setFocusIndex
+    *
+    * @method setFocusIndex
+    * @public
+    * @param {any} accordionItemIndex
+    */
+    setFocusIndex(accordionItemIndex) {
+      set(this, 'focusIndex', accordionItemIndex);
+    },
+
+    /**
+    * registerIndex
+    *
+    * @method registerIndex
+    * @public
+    * @param {any} accordionItemIndex
+    */
+    registerIndex(accordionItemIndex) {
+      get(this, 'accordionItemIndexes').push(accordionItemIndex);
+    },
   }
 
 });
